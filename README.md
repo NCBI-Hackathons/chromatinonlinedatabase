@@ -16,6 +16,8 @@ An Online Database of 3D Chromatin Structure
 ## Monday progress
 1. Creating a new table to hold parameters
    - ID (int, PK)
+     - will autoincrement
    - Name (varchar, 50)
    - Param (varchar(max))
+      - used 1000 rather than maximum
 
