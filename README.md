@@ -20,4 +20,5 @@ An Online Database of 3D Chromatin Structure
    - Name (varchar, 50)
    - Param (varchar(max))
       - used 1000 rather than maximum
+2. Using FontAwesome
 
