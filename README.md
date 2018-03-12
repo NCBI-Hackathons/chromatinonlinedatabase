@@ -13,4 +13,9 @@ An Online Database of 3D Chromatin Structure
    1. use Bootstrap
 4. Adjust menu functionality (js/jquery)
 
+## Monday progress
+1. Creating a new table to hold parameters
+   - ID (int, PK)
+   - Name (varchar, 50)
+   - Param (varchar(max))
 
