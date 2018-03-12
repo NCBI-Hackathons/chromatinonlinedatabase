@@ -1,0 +1,141 @@
+<?php
+#session_start();
+echo $field_name."<br>";
+$name=trim($name);
+$SplitChrBp=explode(":",$name);
+$chr=$SplitChrBp[0];
+$MidPoint=$SplitChrBp[1];
+
+
+$con=mysqli_connect("thirty-four.its.unc.edu","hic_db_user","ro_hic","hic_db");
+
+// Check connection - need to bounce the page if a bad connection
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQLs <b> UNC Hi-C </b> database: <b>" . mysqli_connect_error()."</b>";
+}
+
+$interaction_table=str_replace("chr","HiC_chr",$chr);
+$chromosome_number=intval(str_replace("chr","",$chr));
+
+#trying to find a specific fragment which contains bp midpoint
+$sql="select * from fragment WHERE Chr=".$chromosome_number." AND (StartBp<=".$MidPoint." AND EndBp>=".$MidPoint." )";
+$result=mysqli_query($con,$sql);
+
+if ($result){
+    $rownum=0;
+    while($row = mysqli_fetch_array($result)) {
+    $rownum=$rownum+1;
+    if ($rownum==1)
+        { 
+            $frag_Chr=$row["Chr"];
+            $frag_StartBp=$row["StartBp"];
+            $frag_EndBp=$row["EndBp"];
+            $frag_FragmentID=$row["FragmentID"];
+            $frag_Length=$row["Length"];
+        }
+    
+    }
+
+    $_SESSION['frag_chr']=$frag_Chr;
+    $_SESSION['MidPoint']=$MidPoint;
+}
+else{
+    echo "bad connection<br>";
+}
+
+$sql="select * from ".$interaction_table." INNER JOIN fragment ON ".$interaction_table.".Frag2=fragment.FragmentID WHERE Frag1=".$frag_FragmentID;
+
+$result=mysqli_query($con,$sql);
+$hic_data=array();
+
+if (mysqli_query($con,$sql)){
+    while($row=mysqli_fetch_array($result)){
+#    echo $row["observedcount"]."    <br>";
+        $hic_data[]=array('',$row["StartBp"],$row["ObservedCount"],$row["AFCexpectedCount"],$row["FitHiCexpectedCount"]);
+        $hic_data[]=array('',$row["EndBp"],$row["ObservedCount"],$row["AFCexpectedCount"],$row["FitHiCexpectedCount"]);
+    }
+
+}
+else{
+    echo "Error in finding Database <b> hic_db </b>. Loading in basic data for chromosome 8 - line63.<br>";    
+   $file=fopen('test_data.txt','r'); 
+   while(($buffer=fgets($file))!==false){
+	$buffer=explode(",",$buffer);
+	$hic_data[]=array('',$buffer[1],$buffer[2],$buffer[3],$buffer[4],$buffer[5]);
+	}
+fclose($file); 
+   
+}
+
+mysqli_close($con);
+
+
+$_SESSION["hic_data"]=$hic_data;#saves in global session variable
+
+/*if (empty($Position))
+    $Position="chr".$chromosome_number.":".intval($MidPoint-500000)."-".intval($MidPoint+500000);
+else
+    {
+        $range=explode(':',str_replace('-',':',$Position));
+        if(isset($_POST["view"])){
+            $diff=$range[2]-$range[1];#gets the distance between the start and end bp
+            $mid=($range[1]+$range[2])/2;#gets the mid point between the start and the end
+            $shift=0;
+            switch($_POST["view"]){
+            case '<<':
+                $shift=-floor(($diff)*0.25);
+                break;
+            case '<':
+                $shift=-floor(($diff)*0.1);
+                break;
+            case '>':
+                $shift=floor(($diff)*0.1);
+                break;
+            case '>>':
+                $shift=floor(($diff)*0.25);
+                break;
+            case '1x':
+                $range[1]=$mid-500000;
+                $range[2]=$mid+500000;
+                break;
+            case '-2x':
+                $range[1]=$mid-0.5*$diff/2;
+                $range[2]=$mid+0.5*$diff/2;
+                break;
+            case '2x':
+                $range[1]=$mid-2*$diff/2;
+                $range[2]=$mid+2*$diff/2;
+                break;
+            case '-10x':
+                $range[1]=$mid-0.1*$diff/2;
+                $range[2]=$mid+0.1*$diff/2;
+                break;
+            case '10x':
+                $range[1]=$mid-10*$diff/2;
+                $range[2]=$mid+10*$diff/2;
+                break;
+            default:
+                echo 'not valid case';
+                break;
+            }
+            unset($_POST["view"]);
+            $Position="chr".$chromosome_number.":".intval($range[1]+$shift)."-".intval($range[2]+$shift);
+
+        }
+    }
+
+
+    $_SESSION['Position']=$Position;*/
+
+#echo " midpoint:  ".$MidPoint."    Min data point: ".count(array_column($hic_data,1))."<br>";
+
+/* region to write to file incase of a bad connection while testing
+/* $file=fopen('test_data.txt','a+'); */
+/* foreach($hic_data as $hic){ */
+/*     foreach($hic as $h){ */
+/*         fwrite($file,$h."\t"); */
+/*     } */
+/*     fwrite($file,"\n"); */
+/* } */
+/* fclose($file); */
+?>

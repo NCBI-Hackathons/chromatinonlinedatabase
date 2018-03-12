@@ -1,0 +1,326 @@
+<div id="content" > 
+		<form action="#plots" method="post" id="huginform"  name="huginform">
+            <div id="data">
+<div>
+              <label style="float:left;">Information Type:</label><select name="type" title="Selector for switching between modes" id="typeselect" onchange='update_options()' class="datacontrols" style="background-color:#fff;color:#000000;align:center;vertical-align:center;padding-bottom:5px;">
+				<option id="browser" value="browser" <?php if ($_POST["type"]=="browser") {echo "selected=\"selected\"";} ?>> Virtual 4C plot </option>
+				<option id="heatmap" value="heatmap" <?php if ($_POST["type"]=="heatmap") {echo "selected=\"selected\"";} ?>> Heatmap </option>
+             <option id="association" value="association" <?php if ($_POST["type"]=="association") {echo "selected=\"selected\"";} ?>> Association </option>
+				</select>
+	</div>			
+                                            
+				Anchor Position: <input type="text" name="Name1" value="<?php echo $name;?>" title="Anchor position which can be given as chr:bp, snp, or gene name">
+
+               <input name="run" type="submit" id="clearButton" value="RUN" Style="color:red;font-weight:bold" title="RUN button to retrieve desired data">
+
+               <input name="reset" type="submit" id="restbutton" value="RESET" title="resets the page to default settings">
+               <input name="file" type="file" id="file" onchange="startRead()" Style="display:none;">
+      	      <input name="run" type="submit" class="style2" id="clearButton" value="SUBMIT" Style="color:red;font-weight:bold;display:none;" title="submit button to retrieve desired data">
+               <textarea id="output" name="output" style="width:80%;height:400px;display:none;" ><?php if(isset($_POST["output"])){print_r($_POST["output"]);}?></textarea>
+                <div style="width:100%;height:2px;border:1px solid black; display:none;">
+		      <div id="bar" style="background-color:#45F;width:0px;height:2px; display:none;"></div>
+	        </div>
+				<input type="hidden" name="action" value="list_products">
+				<input type="hidden" name="scrollPosition" >
+            </div>
+
+            <!-- 1205-->
+            <table width=100% style="border-right:rgb(121,165,213) 1px solid;border-left:rgb(121,165,213) 1px solid;border-top:rgb(121,165,213) 1px solid; border-bottom:rgb(121,165,213) 1px solid;" border="5" bordercolor="#000000" bgcolor="#FFFFFF" align="center" cellpadding="10" cellspacing="0">
+			<tr  style="border-rightrgb(121,165,213) 1px solid;border-left:rgb(121,165,213) 1px solid;border-top:rgb(121,165,213) 1px solid;"> 
+			<th align="center" colspan="2" valign="middle" bordercolor="#000000"  class="style2" scope="col">                                                                                                                         
+                move 
+				<INPUT TYPE=SUBMIT NAME="view"  TITLE="move 50% to the left"  VALUE="<<" >
+				<INPUT TYPE=SUBMIT NAME="view"  TITLE="move 10% to the left"  VALUE="<"  >
+                <INPUT TYPE=SUBMIT NAME="view"  TITLE="center" VALUE="Center"  >
+				<INPUT TYPE=SUBMIT NAME="view"  TITLE="move 10% to the right" VALUE=">"  >
+				<INPUT TYPE=SUBMIT NAME="view"  TITLE="move 50% to the right" VALUE=">>" >
+
+			  &nbsp;&nbsp;
+                zoom  
+			<INPUT TYPE=SUBMIT NAME="view"   VALUE="10x" title="zooms in ten times">
+			<INPUT TYPE=SUBMIT NAME="view"   VALUE="2x" title="zooms in 2 times">
+    		<INPUT TYPE=SUBMIT NAME="view"   VALUE="1x" title="resets range to 1Mb">
+			<INPUT TYPE=SUBMIT NAME="view"   VALUE="-2x" title="zooms out 2 times">
+			<INPUT TYPE=SUBMIT NAME="view"   VALUE="-10x"  title="zooms out 10 times">
+
+			</th> 
+			</tr>
+    
+<tr  style="border-rightrgb(121,165,213) 1px solid;border-left:rgb(121,165,213) 1px solid;border-top:rgb(121,165,213) 1px solid;"> 	
+<td align="left">
+    <b>Viewing window: </b><input type="text" name="Position" value="<?php echo $Position;?>" title="viewing window range given as chr:startbp-endbp">
+<b>Highlighting window:</b> <input type="text" name="HighlightingPosition" value="<?php echo $HighlightingPosition;?>" title="highlighting window were the region highlighted can be given by startbp-endbp or gene name. Multiple regions can be selected by inputting them separated by colons(:)."> 
+<input name="view" type="submit" class="style2" id="goButton" value="View">
+<!--<input name="configure" type="submit" class="style2" id="goButton" value="Configure">-->
+</td>
+
+</tr>		
+			
+			</table>
+              <div>
+                 <table width=100% style="border-right:rgb(121,165,213) 1px solid;border-left:rgb(121,165,213) 1px solid;border-top:rgb(121,165,213) 1px solid; border-bottom:rgb(121,165,213) 1px solid;" border="5" bordercolor="#000000" bgcolor="#FFFFFF" align="center" cellpadding="10" cellspacing="0">
+
+                   <tr>
+                     <th colspan="2" align="center">
+                       <h3>Hi-C Data Collected</h3>
+                       </th>
+
+                   <tr>
+                     
+  <th>
+    <h3>Human Cell Lines</h3>
+  </th>
+  <th>
+    <h3>Human Primary Tissues</h3>
+    </th>
+</tr>
+                   <tr>
+                     <td>
+    <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="GM12878" id="GM12878" name="gene_expression[]" <?php if (in_array("GM12878",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Lymphoblastoid Cell (GM12878)" data-off="Lymphoblastoid Cell (GM12878)"></span> 
+    	<span class="switch-handle" ></span>
+    </label>
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="H1" id="H1" name="gene_expression[]" <?php if (in_array("H1",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Human Embryonic Stem Cell" data-off="Human Embryonic Stem Cell"></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="IMR90" id="IMR90" name="gene_expression[]" <?php if (in_array("IMR90",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" style="font-size: 9px" data-on="Fetal Lung Fibroblast Cell (IMR90)" data-off="Fetal Lung Fibroblast Cell (IMR90)"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="MES" id="MES" name="gene_expression[]" <?php if (in_array("MES",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Mesendoderm Cell " data-off="Mesendoderm Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="MSC" id="MSC" name="gene_expression[]" <?php if (in_array("MSC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Mesenchymal Stem Cell" data-off="Mesenchymal Stem Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="NPC" id="NPC" name="gene_expression[]" <?php if (in_array("NPC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Neural Progenitor Cell " data-off="Neural Progenitor Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="TRO" id="TRO" name="gene_expression[]" <?php if (in_array("TRO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Trophoblast-like Cell " data-off="Trophoblast-like Cell "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+                     </td>
+                     <td>
+                           <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="AD" id="AD" name="gene_expression[]" <?php if (in_array("AD",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Adrenal " data-off="Adrenal "></span> 
+    	<span class="switch-handle" ></span>
+    </label>
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="AO" id="AO" name="gene_expression[]" <?php if (in_array("AO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Aorta " data-off="Aorta "></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="BL" id="BL" name="gene_expression[]" <?php if (in_array("BL",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label"  data-on="Bladder " data-off="Bladder "></span>     	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="DLPFC" id="DLPFC" name="gene_expression[]" <?php if (in_array("DLPFC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label"  style="font-size: 9px" data-on="Dorsolateral Prefrontal Cortex" data-off="Dorsolateral Prefrontal Cortex"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="HC" id="HC" name="gene_expression[]" <?php if (in_array("HC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Hippocampus " data-off="Hippocampus"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="LG" id="LG" name="gene_expression[]" <?php if (in_array("LG",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Lung " data-off="Lung"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="LI" id="LI" name="gene_expression[]" <?php if (in_array("LI",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Liver " data-off="Liver"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+    <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="LV" id="LV" name="gene_expression[]" <?php if (in_array("LV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Left Ventricle " data-off="Left Ventricle "></span> 
+    	<span class="switch-handle" ></span>
+    </label>
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="RV" id="RV" name="gene_expression[]" <?php if (in_array("RV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Right Ventricle " data-off="Right Ventricle "></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="OV" id="OV" name="gene_expression[]" <?php if (in_array("OV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Ovary " data-off="Ovary "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="PA" id="PA" name="gene_expression[]" <?php if (in_array("PA",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Pancreas " data-off="Pancreas "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="PO" id="PO" name="gene_expression[]" <?php if (in_array("PO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Psoas " data-off="Psoas "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="SB" id="SB" name="gene_expression[]" <?php if (in_array("SB",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Small Bowel " data-off="Small Bowel "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="SX" id="SX" name="gene_expression[]" <?php if (in_array("SX",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	  <span class="switch-label" data-on="Spleen " data-off="Spleen "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+                     </td>
+                   </tr>
+                   
+
+<tr>
+<td colspan="2" align="Center">
+<!--<input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Update">-->
+<input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Select All">
+<input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Unselect All">
+<input id="toggle" <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?> type="button" onclick=hide_buttons("removebuttons","toggle") title="toggles the visibility of individual remove buttons" value="show remove buttons">
+<input id="toggleprint" type="button" onclick=hide_buttons("printbuttons","toggleprint") title="toggles the visibility of individual print buttons" value="show print buttons">  
+
+  </td>
+</tr>
+                   <tr><td colspan="2" align="center">
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainAdult" id="BrainAdult" name="gene_expression[]" <?php if (in_array("BrainAdult",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain Adult " data-off="Brain Adult "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainFetal" id="BrainFetal" name="gene_expression[]" <?php if (in_array("BrainFetal",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain Fetal " data-off="Brain Fetal "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME45" id="BrainME45" name="gene_expression[]" <?php if (in_array("BrainME45",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME45 " data-off="Brain ME45 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME46" id="BrainME46" name="gene_expression[]" <?php if (in_array("BrainME46",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME46 " data-off="Brain ME46 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME47" id="BrainME47" name="gene_expression[]" <?php if (in_array("BrainME47",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME47 " data-off="Brain ME47 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME49" id="BrainME49" name="gene_expression[]" <?php if (in_array("BrainME49",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME49 " data-off="Brain ME49 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME50" id="BrainME50" name="gene_expression[]" <?php if (in_array("BrainME50",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME50 " data-off="Brain ME50 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+                     <label class="switch" >
+    	               <input class="switch-input"  type="checkbox" value="BrainME51" id="BrainME51" name="gene_expression[]" <?php if (in_array("BrainME51",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")' />
+    	               <span class="switch-label" data-on="Brain ME51 " data-off="Brain ME51 "></span> 
+    	               <span class="switch-handle" ></span>
+                     </label>
+
+</td></tr>
+
+<tr>
+  <th colspan="2" align="Center">
+                     <?php if(!isset($_POST["plot_options"])) {$_POST["plot_options"]=array();}?>
+                     <h3>Plot Options
+<!--<input name="plot_options_Button" type="submit" class="style2" id="plot_options_Button" value="Update">-->
+<input name="plot_options_Button" type="submit"  id="plot_options_Button" value="Display All">
+<input name="plot_options_Button" type="submit"  id="plot_options_Button" value="Hide All">
+                        <button onclick=PrintDiv(plots) title="Button to print data window">print all</button>
+
+                     </h3>
+                     
+<!--<input type="checkbox" value="pvalue" name="plot_options[]" <?php if (in_array("pvalue",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?>  onclick='update("huginform")'> Show q-value
+<input type="checkbox" value="GENES" name="plot_options[]" <?php if (in_array("GENES",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'> Show Gene expression
+<label id=fire <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>><input type="checkbox"  value="FIRE" name="plot_options[]" <?php if (in_array("FIRE",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?>  onclick='update("huginform")'> Show FIREs</label>
+<label id=tad  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>><input type="checkbox" value="TADS" name="plot_options[]" <?php if (in_array("TADS",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?>  onclick='update("huginform")'> Show TAD Boundaries</label>
+<label id=SE  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>><input type="checkbox" value="SE" name="plot_options[]" <?php if (in_array("SE",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?>  onclick='update("huginform")'> Show Enhancers</label>
+<label id=ctcf  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>><input type="checkbox" value="CTCF" name="plot_options[]" <?php if (in_array("CTCF",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?>  onclick='update("huginform")'> Show CTCF peaks</label>
+<label id=chipseq <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>><input type="checkbox" value="CHIP" name="plot_options[]" <?php if (in_array("CHIP",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'> Show ChIP-Seq</label>
+<input type="checkbox" value="SNPS" name="plot_options[]" <?php if (in_array("SNPS",$_POST["plot_options"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'> Show SNPs (GWAS)
+-->
+
+        <select class="datacontrols" name="genes" title="" onchange='update("huginform")' <?php if(strpos($_POST["genes"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+          <option  value="hide" <?php if ($_POST["genes"]=="hide") {echo "selected=\"selected\"";} ?>> Hide Genes Expression</option>
+		  <option  value="display" <?php if ($_POST["genes"]=="display") {echo "selected=\"selected\"";} ?>> Display Gene Expression</option>
+		  <option  value="displaysquished" <?php if ($_POST["genes"]=="displaysquished") {echo "selected=\"selected\"";} ?>> Compact Display Genes Expression</option>
+          <option  value="displayexpanded" <?php if ($_POST["genes"]=="displayexpanded") {echo "selected=\"selected\"";} ?>> Expanded Display Genes Expression</option>
+		</select>
+
+
+               <label id=fire <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>>
+                 <select class="datacontrols" name="fires" title="" onchange='update("huginform")' <?php if(strpos($_POST["fires"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["fires"]=="hide") {echo "selected=\"selected\"";} ?>> Hide FIREs</option>
+				   <option  value="display" <?php if ($_POST["fires"]=="display") {echo "selected=\"selected\"";} ?>> Display FIREs</option>
+				 </select>
+               </label>
+               <label id=tad  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>>
+                 <select class="datacontrols" name="TADs" title="" onchange='update("huginform")' <?php if(strpos($_POST["TADs"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["TADs"]=="hide") {echo "selected=\"selected\"";} ?>> Hide TAD Boundaries</option>
+				 <option  value="display" <?php if ($_POST["TADs"]=="display") {echo "selected=\"selected\"";} ?>> Display TAD Boundaries</option>
+				 </select>                
+               </label>
+               <label id=SE  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>>
+                 <select class="datacontrols" name="SE" title="" onchange='update("huginform")'<?php if(strpos($_POST["SE"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["SE"]=="hide") {echo "selected=\"selected\"";} ?>> Hide Enhancers</option>
+				 <option  value="displayTESE" <?php if ($_POST["SE"]=="displayTESE") {echo "selected=\"selected\"";} ?>> Display all Enhancers</option>
+				   <option  value="displayTE" <?php if ($_POST["SE"]=="displayTE") {echo "selected=\"selected\"";} ?>> Display regular Enhancers</option>
+                   <option  value="displaySE" <?php if ($_POST["SE"]=="displaySE") {echo "selected=\"selected\"";} ?>> Display super Enhancers</option>
+				 </select>                
+               </label>
+               <label id=CTCF  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?> >
+                 <select class="datacontrols" name="CTCF" title=""  <?php if($_POST["CTCF"]=="display"){echo "style=\"background-color:#00A115;color:#fff\"";}?> onchange='update("huginform")'>
+                   <option  value="hide" <?php if ($_POST["CTCF"]=="hide") {echo "selected=\"selected\"";} ?>> Hide CTCF peaks</option>
+				   <option  value="display" <?php if ($_POST["CTCF"]=="display") {echo "selected=\"selected\"";} ?> > Display CTCF peaks</option>
+				 </select>                
+               </label>
+               <label id=chipseq  <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>>
+                 <select class="datacontrols" name="CHIP" title="" onchange='update("huginform")' <?php if(strpos($_POST["CHIP"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["CHIP"]=="hide") {echo "selected=\"selected\"";} ?>> Hide ChIP-Seq</option>
+				   <option  value="display" <?php if ($_POST["CHIP"]=="display") {echo "selected=\"selected\"";} ?>> Display ChIP-Seq</option>
+				 </select>                
+               </label>
+               <label id=gwas >
+                 <select class="datacontrols" name="SNPs" title="" onchange='update("huginform")' <?php if(strpos($_POST["SNPs"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["SNPs"]=="hide") {echo "selected=\"selected\"";} ?>> Hide SNPs (GWAS)</option>
+				   <option  value="display" <?php if ($_POST["SNPs"]=="display") {echo "selected=\"selected\"";} ?>> Display SNPs (GWAS)</option>
+				   <option  value="displayexpanded" <?php if ($_POST["SNPs"]=="displayexpanded") {echo "selected=\"selected\"";} ?>> Expanded Display SNPs (GWAS)</option>
+				 </select>
+               </label>
+               
+               <label id=pvaluey <?php if($_POST["type"]=="heatmap"){echo "style=\"display:none\"";}?>>
+                 <select class="datacontrols" name="py" title="" onchange='update("huginform")' <?php if(strpos($_POST["py"],"display")!==false){echo "style=\"background-color:#00A115;color:#fff\"";}?>>
+                   <option  value="hide" <?php if ($_POST["py"]=="hide") {echo "selected=\"selected\"";} ?>> Free Float p-value Range</option>
+                   <option  value="displaynolabel" <?php if ($_POST["py"]=="displaynolabel") {echo "selected=\"selected\"";} ?>> Free Float p-value Range (no label)</option>
+				   <option  value="displayfdr" <?php if ($_POST["py"]=="displayfdr") {echo "selected=\"selected\"";} ?>> Display FDR in Range</option>
+				   <option  value="displaybon" <?php if ($_POST["py"]=="displaybon") {echo "selected=\"selected\"";} ?>> Display Bonferroni in Range</option>
+				 </select>
+               </label>
+  </th>
+</tr>
+</table>
+</div>
+<br>
+        </form>

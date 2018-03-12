@@ -1,0 +1,4 @@
+AuthType Basic
+Order deny,allow
+Deny from all
+Allow from unc.edu

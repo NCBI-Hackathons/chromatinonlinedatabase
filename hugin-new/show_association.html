@@ -1,0 +1,171 @@
+<div id="Association_content" >
+  <form action="." method="post" id="huginform">
+    <div id="data">
+<div>
+  <label style="float:left;">Information Type:</label>
+  <select name="type" title="Selector for switching between modes" id="typeselect" onchange='update_options()' class="datacontrols" style="background-color:#fff;color:#000000;align:center;vertical-align:center;padding-bottom:5px;">
+			 <option id="browser" value="browser" <?php if ($_POST["type"]=="browser") {echo "selected=\"selected\"";} ?>> Virtual 4C plot </option>
+			 <option id="heatmap" value="heatmap" <?php if ($_POST["type"]=="heatmap") {echo "selected=\"selected\"";} ?>> Heatmap </option>
+             <option id="outtext" value="outtext" <?php if ($_POST["type"]=="outtext") {echo "selected=\"selected\"";} ?>> Text Information </option>
+             <option id="association" value="association" <?php if ($_POST["type"]=="association") {echo "selected=\"selected\"";} ?>> Association </option>
+				</select>
+</div>
+<!--      <input name="reset" type="SUBMIT" id="restbutton" value="RESET" title="resets the page to default settings">-->
+      <input name="reset" type="SUBMIT" id="restbutton" value="RESET" title="resets the page to default settings" href="">
+    </div>
+    
+    <table width=100% style="border-right:rgb(121,165,213) 1px solid;border-left:rgb(121,165,213) 1px solid;border-top:rgb(121,165,213) 1px solid; border-bottom:rgb(121,165,213) 1px solid;" border="5" bordercolor="#000000" bgcolor="#FFFFFF" align="center" cellpadding="10" cellspacing="0">
+      <tr>
+        <td rowspan="3">
+          <p>List of SNPs to analyze</p>
+	      <input name="file" id="file" type="file" onchange="startRead()" >
+          <input name="run" type="submit" id="clearButton" value="SUBMIT" Style="background:#E1E1E1;color:#00A115;font-weight:bold;border:1px solid #005E0C;box-shadow:0px 0px 0px 2px #00A115;" title="submit button to retrieve desired data">
+
+	      <input type="hidden" name="action" value="list_products">
+          <input type="hidden" name="Name1" value="<?php echo $name;?>">
+          <input type="hidden" name="Position" value="<?php echo $Position;?>">
+          <input type="hidden" name="HighlightingPosition" value="<?php echo $HighlightingPosition;?>">
+          <div style="height:90%">
+            <textarea id="output" name="output" style="width:80%;height:400px" ><?php if(isset($_POST["output"])){print_r($_POST["output"]);}?></textarea>
+            
+	        <div style="width:100%;height:2px;border:1px solid black; display:none;">
+		      <div id="bar" style="background-color:#45F;width:0px;height:2px; display:none;"></div>
+	        </div>
+            
+          </div>
+        </td>
+        <td>
+          <div>
+            <h3>Human Cell Lines</h3>
+            <label class="switch">
+            <input class="switch-input"  type="checkbox" value="GM12878" id="GM12878" name="gene_expression[]" <?php if (in_array("GM12878",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+            
+    	    <span class="switch-label" data-on="Lymphoblastoid Cell (GM12878)" data-off="Lymphoblastoid Cell (GM12878)"></span>
+            
+    	<span class="switch-handle" ></span>
+</label>
+
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="H1" id="H1" name="gene_expression[]" <?php if (in_array("H1",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Human Embryonic Stem Cell" data-off="Human Embryonic Stem Cell"></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="IMR90" id="IMR90" name="gene_expression[]" <?php if (in_array("IMR90",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" style="font-size: 9px" data-on="Fetal Lung Fibroblast Cell (IMR90)" data-off="Fetal Lung Fibroblast Cell (IMR90)"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="MES" id="MES" name="gene_expression[]" <?php if (in_array("MES",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Mesendoderm Cell " data-off="Mesendoderm Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="MSC" id="MSC" name="gene_expression[]" <?php if (in_array("MSC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Mesenchymal Stem Cell" data-off="Mesenchymal Stem Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="NPC" id="NPC" name="gene_expression[]" <?php if (in_array("NPC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Neural Progenitor Cell " data-off="Neural Progenitor Cell"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="TRO" id="TRO" name="gene_expression[]" <?php if (in_array("TRO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Trophoblast-like Cell " data-off="Trophoblast-like Cell "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <h3>Human Primary Tissues</h3>
+                           <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="AD" id="AD" name="gene_expression[]" <?php if (in_array("AD",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Adrenal " data-off="Adrenal "></span> 
+    	<span class="switch-handle" ></span>
+    </label>
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="AO" id="AO" name="gene_expression[]" <?php if (in_array("AO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Aorta " data-off="Aorta "></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="BL" id="BL" name="gene_expression[]" <?php if (in_array("BL",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label"  data-on="Bladder " data-off="Bladder "></span>     	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="DLPFC" id="DLPFC" name="gene_expression[]" <?php if (in_array("DLPFC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label"  style="font-size: 9px" data-on="Dorsolateral Prefrontal Cortex" data-off="Dorsolateral Prefrontal Cortex"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="HC" id="HC" name="gene_expression[]" <?php if (in_array("HC",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Hippocampus " data-off="Hippocampus"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="LG" id="LG" name="gene_expression[]" <?php if (in_array("LG",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Lung " data-off="Lung"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="LI" id="LI" name="gene_expression[]" <?php if (in_array("LI",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Liver " data-off="Liver"></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+    <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="LV" id="LV" name="gene_expression[]" <?php if (in_array("LV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Left Ventricle " data-off="Left Ventricle "></span> 
+    	<span class="switch-handle" ></span>
+    </label>
+        <label class="switch" >
+    	<input class="switch-input"  type="checkbox" value="RV" id="RV" name="gene_expression[]" <?php if (in_array("RV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	<span class="switch-label" data-on="Right Ventricle " data-off="Right Ventricle "></span> 
+    	<span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="OV" id="OV" name="gene_expression[]" <?php if (in_array("OV",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Ovary " data-off="Ovary "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="PA" id="PA" name="gene_expression[]" <?php if (in_array("PA",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Pancreas " data-off="Pancreas "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="PO" id="PO" name="gene_expression[]" <?php if (in_array("PO",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Psoas " data-off="Psoas "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="SB" id="SB" name="gene_expression[]" <?php if (in_array("SB",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Small Bowel " data-off="Small Bowel "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+        <label class="switch" >
+    	  <input class="switch-input"  type="checkbox" value="SX" id="SX" name="gene_expression[]" <?php if (in_array("SX",$_POST["gene_expression"]))  {echo "checked=\"checked\"";}?> onclick='update("huginform")'/>
+    	  <span class="switch-label" data-on="Spleen " data-off="Spleen "></span> 
+    	  <span class="switch-handle" ></span>
+        </label>
+            
+          </div>
+        </td>
+      </tr>
+      
+      <tr>
+        <td align="Center">
+          <input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Update">
+          <input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Check All">
+          <input name="HiCButton" type="submit" class="style2" id="HiCButton" value="Uncheck All">            
+        </td>
+      </tr>
+    </table>
+    
+  </form>
+</div>
+
+
