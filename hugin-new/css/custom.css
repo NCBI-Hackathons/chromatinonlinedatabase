@@ -1,0 +1,16 @@
+main.container {
+	padding-top: 10px;
+}
+
+main hr {
+	border-top: 1px solid #ddd;
+	height: 2px; 
+}
+
+#navbarHeader .menu-options {
+	background: rgba(0,0,0,0.2);
+}
+
+.hide-fa {
+	color: #2a2e33;
+}

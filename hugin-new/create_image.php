@@ -91,7 +91,7 @@ $hic_data=$_SESSION["hic_data".$field_name];// $_SESSION["hic_data"]; - contains
 
 $range=explode(':',str_replace('-',':',$_SESSION['Position']));
 
-$data=array();//sets empty array to fill from mysql data
+$data=array();//sets empty array to fill from ,mysql data
 
 foreach($hic_data as $hic)//cuts out the section of data that needs to be shown
 {

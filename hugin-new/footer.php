@@ -1,10 +1,12 @@
-<div>
-<br>
-<hr>
-<table width=100% align="center" cellpadding="10" cell spacing="0">
-     <tr>
-     <td>
-<h3>References</h3>
+
+	</main>
+	<footer class="container">
+	<div class="row">
+		<div class="col-12">
+			<hr>
+		</div>
+		<div class="col-9">
+			<h3>References</h3>
      <!--references associated with hugin - Martin et al paper will need to be updated once it is fully published-->
 <ol>
      <li> Martin JS, Xu Z, Reiner AP, Mohlke KL, Sullivan P, Ren B, Hu M, and Li Y. (2017) HUGIn: Hi-C Unifying Genomic Interrogator. Bioinformatics. doi: <a href="https://academic.oup.com/bioinformatics/article/3861336/HUGIn-Hi-C-Unifying-Genomic-Interrogator" target="_blank">https://academic.oup.com/bioinformatics/article/3861336/HUGIn-Hi-C-Unifying-Genomic-Interrogator</a> .</li>
@@ -15,17 +17,23 @@
 <li>Ay F, Bailey TL and Noble WS (2014) Statistical confidence estimation for Hi-C data reveals regulatory
 chromatin contacts. Genome Research 24: 974-988.</li>
 </ol>
-</td>
-<td>
+</div>
+<div class="col-3">
 <a href="http://info.flagcounter.com/royF" target="_blank"><img src="http://s01.flagcounter.com/count2/royF/bg_FFFFFF/txt_000000/border_000000/columns_2/maxflags_10/viewers_0/labels_0/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-</td>
-</tr>
-</table>
+</div>
 
 <?php
-  echo "<p>Questions or comments about HUGIn, please contact ".$email.".</p>";
+  echo '<div class="col-12"><p class="text-center">Questions or comments about HUGIn, please contact '.$email.'.</p></div>';
 ?>
-</div>
+		</div>
+	</div>
+</footer>
                                             
-</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

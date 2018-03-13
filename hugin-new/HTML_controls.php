@@ -1,5 +1,5 @@
 <?php
-session_start();//starts up the session to make sure variables can be passed across php files
+//session_start();//starts up the session to make sure variables can be passed across php files
 
 $name=$_POST["Name1"];//gets the name of the position
 if(isset($_POST["view"]) and !empty($_SESSION['MidPoint'])){//if statement to change viewing window range
