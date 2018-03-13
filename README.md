@@ -2,7 +2,7 @@
 An Online Database of 3D Chromatin Structure
 
 # Goal of Team HUGin
-[alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/website_header_1.PNG "Old Website Header")
+![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/website_header_1.PNG "Old Website Header")
 
 ## Work Flow
 1. Understand js to load the graphs on HUGin 
