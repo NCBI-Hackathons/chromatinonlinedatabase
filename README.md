@@ -22,3 +22,8 @@ An Online Database of 3D Chromatin Structure
       - used 1000 rather than maximum
 2. Using FontAwesome
 
+## Tuesday morning meeting
+1. Most of the graphical parameters are being stored as sessions
+   - instead, we'll build the graphical parameters into the URL
+   - won't need to build a hidden database of parameters instead
+
