@@ -23,12 +23,17 @@ Old Menu:
 ![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/oldsite_1.PNG "Old Menu")
 
 Updated Menu:
-![alt text]()
+![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/hackathon2.png "New Menu")
+
+Updated Graph Representation:
+![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/hackathon1.png "New Graphs")
 
 ## Tuesday WIP
 1. Parameters were previously stored as cookies/sessions
    - sorting through php script to identify all parameters stored as cookies
 
-Plans for Tuesday afternoon:
-- Finalize bookmarking features
+Plans for Tuesday afternoon/Wednesday:
+- Provide Yun Li lab with further suggestions for web development
+- Switch directions:
+   - 
 
