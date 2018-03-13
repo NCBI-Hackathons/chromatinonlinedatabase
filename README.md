@@ -34,6 +34,6 @@ Updated Graph Representation:
 
 Plans for Tuesday afternoon/Wednesday:
 - Provide Yun Li lab with further suggestions for web development
-- Switch directions:
-   - 
+- Switch directions
+   - :)
 
