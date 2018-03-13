@@ -1,8 +1,11 @@
-# chromatinonlinedatabase
-An Online Database of 3D Chromatin Structure
-
-# Goal of Team HUGin
+# Team HUGin
 ![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/website_header_1.PNG "Old Website Header")
+An out-of-date online database of 3D chromatin structure, in need of user-friendly updates and improvements in functionality.
+
+
+## Our Goal
+During this Hackathon, we aim to overhaul the layout and interface of the HUGin website to drastically improve the user experience. In addition, we plan to improve the reproducibility of the graphics produced by the software by removing parameters stored as sessions and moving graphical parameters to unique URLs.
+
 
 ## Work Flow
 1. Understand js to load the graphs on HUGin 
@@ -14,16 +17,19 @@ An Online Database of 3D Chromatin Structure
 4. Adjust menu functionality (js/jquery)
 
 ## Monday progress
-1. Creating a new table to hold parameters
-   - ID (int, PK)
-     - will autoincrement
-   - Name (varchar, 50)
-   - Param (varchar(max))
-      - used 1000 rather than maximum
-2. Using FontAwesome
+Most of the work on Monday was devoted to creating a menu icon that allowed the user to select specific graphical parameters. Prior to these updates, upon changing one parameter the user would be automatically scrolled down to the updated figure on the web page. This prevented the user from conveniently altering multiple graphical parameters.
 
-## Tuesday morning meeting
-1. Most of the graphical parameters are being stored as sessions
-   - instead, we'll build the graphical parameters into the URL
-   - won't need to build a hidden database of parameters instead
+Old Menu:
+![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/oldsite_1.PNG "Old Menu")
+
+Updated Menu:
+![alt text]()
+
+## Tuesday WIP
+1. Parameters were previously stored as cookies/sessions
+   - sorting through php script to identify all parameters stored as cookies
+
+Plans for Tuesday afternoon:
+- Finalize bookmarking features
+-
 
