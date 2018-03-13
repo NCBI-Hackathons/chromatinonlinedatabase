@@ -31,5 +31,4 @@ Updated Menu:
 
 Plans for Tuesday afternoon:
 - Finalize bookmarking features
--
 
