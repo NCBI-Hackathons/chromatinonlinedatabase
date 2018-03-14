@@ -42,7 +42,7 @@ We have identified and stored eQTL and meQTL datasets pertaining to the lymphobl
 
 With this data, we hope to identify regions of the genome whose expression changes are controlled both by an Methyl-QTL as well as an eQTL. Previous analysis have identified SNPs that serve as both eQTLs and Methyl-QTLs, but we hoped to integrate this data with comprehensive Hi-C data from the Yun Li lab.
 ### Data cleaning
-Upon downloading these files, we cleaned up the input with the [qtl_cleanup.R](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/qtl_cleanup.R)script. We apologize for the general lack of comments - we were rushed!
+Upon downloading these files, we cleaned up the input with the [qtl_cleanup.R](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/qtl_cleanup.R) script. We apologize for the general lack of comments - we were rushed!
 
 
 ### Analysis and output
