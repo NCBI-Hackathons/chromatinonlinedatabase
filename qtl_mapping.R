@@ -38,7 +38,7 @@ for(j in 1:nrow(eqtl_chr1)){
 }
 
 temphold <- NULL
-for(q in 15:22){
+for(q in 1:22){
   num <- paste("chr",q, sep = "")
   eqtl_chr1 <- eqtl_raw[eqtl_raw[,"gene_chr"] == q,]
   meqtl_chr1 <- meqtl_raw[meqtl_raw[,"PROBE_CHR"] == num,]
