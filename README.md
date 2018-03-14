@@ -16,7 +16,7 @@ During this Hackathon, we aim to overhaul the layout and interface of the HUGin 
    1. use Bootstrap
 4. Adjust menu functionality (js/jquery)
 
-## Monday progress
+## Website Improvements
 Most of the work on Monday was devoted to creating a menu icon that allowed the user to select specific graphical parameters. Prior to these updates, upon changing one parameter the user would be automatically scrolled down to the updated figure on the web page. This prevented the user from conveniently altering multiple graphical parameters.
 
 Old Menu:
@@ -28,12 +28,16 @@ Updated Menu:
 Updated Graph Representation:
 ![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/hackathon1.png "New Graphs")
 
-## Tuesday WIP
-1. Parameters were previously stored as cookies/sessions
-   - sorting through php script to identify all parameters stored as cookies
+## Integration meQTL, eQTL, and Hi-C Data
+Previous studies have shown that meQTL and eQTL data can be effectively integrated (https://doi.org/10.1371/journal.pgen.1004663). Combined with the experience of the Yun Li lab in analyzing Hi-C data and with the outstanding website improvements, we sought to integrate Hi-C analysis with both meQTL and eQTL data sets. 
 
-Plans for Tuesday afternoon/Wednesday:
-- Provide Yun Li lab with further suggestions for web development
-- Switch directions
-   - :)
+### Our Workflow
+We have identified and stored eQTL and meQTL datasets pertaining to the lymphoblastoid cell line (LCL) available from publicly available sources.
+   - GTEx: https://www.gtexportal.org/home/
+      - https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/eqtl_gm12878_cleaned.csv
+   - Yoav Gilad lab: http://giladlab.uchicago.edu/data/meQTL_summary_table.txt
+      - https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/meqtl_gm12878_cleaned.csv 
+   -  
+
+With this data, we hope to identify regions of the genome whose expression changes are controlled both by an Methyl-QTL as well as an eQTL. Previous analysis have identified SNPs that serve as both eQTLs and Methyl-QTLs, but we hoped to 
 

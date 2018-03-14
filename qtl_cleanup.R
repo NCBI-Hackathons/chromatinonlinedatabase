@@ -26,3 +26,13 @@ rownames(eqtl_raw) <- eqtl_ID
 
 write.csv(x = eqtl_raw, file = "eqtl_gm12878_cleaned.csv")
 write.csv(x = meqtl_raw, file = "meqtl_gm12878_cleaned.csv")
+
+
+
+
+
+n <- read.csv("chromosome_all_qtl_map.csv", header = T, row.names = 1)
+for(i in 1:nrow(n)){if(n[i,"pos_SNP"] == n[i,"methylSNP"]){print("me")}}
+
+
+
