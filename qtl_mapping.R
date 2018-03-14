@@ -1,4 +1,4 @@
-setwd(dir = "C:/Users/Nate Diehl/Dropbox/HUGin/chromatinonlinedatabase/")
+setwd()
 ## set your wd to your local git repo
 
 eqtl_raw <- read.csv("eqtl_gm12878_cleaned.csv", row.names = 1, header = T)

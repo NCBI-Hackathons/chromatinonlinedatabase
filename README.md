@@ -37,7 +37,26 @@ We have identified and stored eQTL and meQTL datasets pertaining to the lymphobl
       - https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/eqtl_gm12878_cleaned.csv
    - Yoav Gilad lab: http://giladlab.uchicago.edu/data/meQTL_summary_table.txt
       - https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/meqtl_gm12878_cleaned.csv 
-   -  
+   -  Yun Li lab:
+      - https://yunliweb.its.unc.edu//HUGIn/
 
-With this data, we hope to identify regions of the genome whose expression changes are controlled both by an Methyl-QTL as well as an eQTL. Previous analysis have identified SNPs that serve as both eQTLs and Methyl-QTLs, but we hoped to 
+With this data, we hope to identify regions of the genome whose expression changes are controlled both by an Methyl-QTL as well as an eQTL. Previous analysis have identified SNPs that serve as both eQTLs and Methyl-QTLs, but we hoped to integrate this data with comprehensive Hi-C data from the Yun Li lab.
+### Data cleaning
+Upon downloading these files, we cleaned up the input with the [qtl_cleanup.R](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/qtl_cleanup.R)script. We apologize for the general lack of comments - we were rushed!
+
+
+### Analysis and output
+Analysis of these files were carried out in the [qtl_mapping.R](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/qtl_mapping.R) script. Once again, we apologize for the lack of comments and usability of these scripts - we were rushed!
+
+Using these two data sets, we found overlaping regions of significant expression changes controlled by both an eQTL and an meQTL. These results for LCL cells are stored [here](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/chromosome_all_qtl_map.csv). 
+
+Using this analysis, we chose one SNP from the eQTL data set and mapped it into the Hi-C dataset in an attempt to identify regions of the genome that are both connected by expression changes and are close in proximity.
+
+Below, you see a figure with the SNP rs78002007 which was identified in significant association with a region of the genome upstream (green bar). This region overlapped with another region associated with a local methyl-QTL (blue arrow SNP, orange bar expression locus). 
+
+![alt text](https://github.com/NCBI-Hackathons/chromatinonlinedatabase/blob/master/rs78002007.png "figure 1")
+
+
+Our hope is to use this integrated "-OMICS" approach to identify novel mechanisms of gene regulation in complex 3-dimensional systems.
+
 
